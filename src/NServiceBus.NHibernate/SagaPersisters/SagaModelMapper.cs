@@ -51,24 +51,24 @@ namespace NServiceBus.SagaPersisters.NHibernate.AutoPersistence
 
         public static void AddMappings(Configuration configuration, SagaMetadataCollection allSagaMetadata, IEnumerable<Type> types, Func<Type, string> tableNamingConvention = null)
         {
-            var modelMapper = new SagaModelMapper(allSagaMetadata, types, tableNamingConvention);
-            configuration.AddMapping(modelMapper.Compile());
-            configuration.BuildMappings();
-            var mappings = configuration.CreateMappings(Dialect.GetDialect(configuration.Properties));
+            //var modelMapper = new SagaModelMapper(allSagaMetadata, types, tableNamingConvention);
+            //configuration.AddMapping(modelMapper.Compile());
+            //configuration.BuildMappings();
+            //var mappings = configuration.CreateMappings(Dialect.GetDialect(configuration.Properties));
 
-            foreach (var collection in mappings.IterateCollections)
-            {
-                var table = collection.CollectionTable;
+            //foreach (var collection in mappings.IterateCollections)
+            //{
+            //    var table = collection.CollectionTable;
 
-                foreach (var foreignKey in table.ForeignKeyIterator)
-                {
-                    var idx = new Index();
-                    idx.AddColumns(foreignKey.ColumnIterator);
-                    idx.Name = "IDX" + foreignKey.Name.Substring(2);
-                    idx.Table = table;
-                    table.AddIndex(idx);
-                }
-            }
+            //    foreach (var foreignKey in table.ForeignKeyIterator)
+            //    {
+            //        var idx = new Index();
+            //        idx.AddColumns(foreignKey.ColumnIterator);
+            //        idx.Name = "IDX" + foreignKey.Name.Substring(2);
+            //        idx.Table = table;
+            //        table.AddIndex(idx);
+            //    }
+            //}
         }
 
         void ApplyClassConvention(IModelInspector mi, Type type, IClassAttributesMapper map)
